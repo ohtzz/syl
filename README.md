@@ -528,26 +528,27 @@ $ curl -s -X POST http://172.20.0.2:8000/tools/list_datastores | jq
 
 For the MCP HTTP stream endpoint, I prefer using [MCP Inspector](https://github.com/modelcontextprotocol/inspector).  
 
+![MCP Inspector](./README_SRC/mcp_inspector.png)
+
 ## Examples
 #### Status of Syl resources
 You can retrieve the status of existing Syl resources via `syl status`:
 ```bash
 $ syl status
-┌────────────────────────┬────────────┬──────────────┬────────────┬────────────┬────────────┬────────────────────────┬───────────────┐
-│     CONTAINER NAME     │  PROJECT   │ CONTAINER ID │ REGISTERED │   STATUS   │ CONTAINER  │         IMAGE          │   IP ADDRESS  │
-├────────────────────────┼────────────┼──────────────┼────────────┼────────────┼────────────┼────────────────────────┼───────────────┤
-│syl-network             │syl         │N/A           │N/A         │✓ available │✓ N/A       │docker-network          │172.20.0.0/16  │
-│syl-server              │syl         │332c5a8fde3a  │N/A         │✓ available │✓ running   │syl-server:latest       │172.20.0.2     │
-│syl-pgvector-megaparse  │megaparse   │41b465c78a78  │True        │✓ available │✓ running   │pgvector/pgvector:pg17  │172.20.0.3     │
-│syl-index-vllm          │vllm        │dc254d4f1d76  │False       │~ indexing  │✓ running   │syl-index:latest        │172.20.0.5     │
-│syl-pgvector-vllm       │vllm        │6a72873ff3b8  │False       │~ indexing  │✓ running   │pgvector/pgvector:pg17  │172.20.0.4     │
-└────────────────────────┴────────────┴──────────────┴────────────┴────────────┴────────────┴────────────────────────┴───────────────┘                                                                       docker2.py:57
+
+CONTAINER NAME          DATASTORE   CONTAINER ID    REGISTERED    STATUS       CONTAINER    IMAGE                      IP ADDRESS
+----------------------  ----------  --------------  ------------  -----------  -----------  -------------------------  -------------
+syl-network             syl         N/A             N/A           ✓ available  N/A          docker-network             172.20.0.0/16
+syl-server              syl         be9e16b8b2c9    N/A           ✓ available  ✓ running    ohtz/syl-test:server-l...  172.20.0.2
+syl-pgvector-vllm       vllm        ecbd2cc8e16e    True          ✓ available  ✓ running    pgvector/pgvector:pg17     172.20.0.4
+syl-pgvector-megaparse  megaparse   7f6db5cc40d9    True          ✓ available  ✓ running    pgvector/pgvector:pg17     172.20.0.5
+syl-pgvector-test       test        cb81f86390b0    True          ✓ available  ✓ running    pgvector/pgvector:pg17     172.20.0.3                                                                    docker2.py:57
 ```
 
 Outdated images will show as yellow. Use `syl pull` to pull the latest images which will be used for the next created project.  
 
 
-#### A local repo with a Syl Postgres pgvector container
+#### Creating a local datastore with a Syl Postgres pgvector container
 This example mounts a local directory containing code files, generates embeddings using the default model, and offloads to a local Postgres pgvector database running in the Syl Docker network.  
 The project is then made available to the proxy service under the name `my-local-project`.  
 ```bash
@@ -556,7 +557,7 @@ syl create datastore pgvector my-local-project \
   --mount-path "/Users/ohtz/my_super_cool_project"
 ```
 
-#### A remote repo with S3 Vector bucket datastore
+#### Creating a remote datastore with S3 Vector bucket datastore
 This example clones the [vLLM](https://github.com/vllm-project/vllm) Github repository, generates embeddings using the default model, and offloads them to an S3 Vector bucket using my AWS credentials from `~/.aws/`.  
 The project is then made available to the proxy service under the name `vllm`.  
 ```bash
