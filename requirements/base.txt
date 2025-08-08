@@ -1,0 +1,37 @@
+# Torch is now installed in a separate Docker layer
+# forcing CPU-only version.
+#
+# This is the only way I could get the AMD64 builds to
+# stop pulling in giant Nvidia deps.
+#
+# Use CPU-only PyTorch to save ~1GB.
+# Should be _okay_ with threading..
+#--find-links https://download.pytorch.org/whl/cpu
+#torch==2.7.* --index-url https://download.pytorch.org/whl/cpu
+
+# Core dependencies
+pydantic<2.12.0
+pydantic-settings<2.12.0
+pydantic_core<2.34.0
+docker==7.1.0
+tree-sitter==0.24.0
+tree-sitter-python==0.23.6
+boto3<1.40.0
+botocore<1.40.0
+radon==6.0.1
+s3transfer==0.13.0
+requests<2.33.0
+
+# ML libraries
+sentence-transformers<6.0.0
+chromadb<1.1.0
+transformers==4.53.2
+
+# Database and utilities
+psycopg2-binary<2.10.0
+loguru<0.8.0
+sqlalchemy<2.1.0
+jedi<0.20.0
+pgvector==0.4.1
+tree-sitter-javascript==0.23.1
+tree-sitter-typescript==0.23.2
