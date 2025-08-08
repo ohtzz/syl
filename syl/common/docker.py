@@ -15,11 +15,10 @@ from docker.models.networks import Network
 PGVECTOR_IMAGE = 'pgvector/pgvector:pg17'
 CHROMA_DB_IMAGE = 'chromadb/chroma:latest'
 
-# TODO test-
-SYL_BASE_IMAGE_NAME = 'ohtz/syl-test:base-latest'
-SYL_SERVER_IMAGE_NAME = 'ohtz/syl-test:server-latest'
-SYL_INDEX_IMAGE_NAME = 'ohtz/syl-test:index-latest'
-SYL_WATCHER_IMAGE_NAME = 'ohtz/syl-test:watcher-latest'
+SYL_BASE_IMAGE_NAME = 'ohtz/syl:base-latest'
+SYL_SERVER_IMAGE_NAME = 'ohtz/syl:server-latest'
+SYL_INDEX_IMAGE_NAME = 'ohtz/syl:index-latest'
+SYL_WATCHER_IMAGE_NAME = 'ohtz/syl:watcher-latest'
 
 # All syl images for checking updates
 SYL_IMAGES = [

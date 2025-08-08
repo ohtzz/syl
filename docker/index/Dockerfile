@@ -1,4 +1,4 @@
-FROM ohtz/syl-test:base-latest
+FROM ohtz/syl:base-latest
 
 COPY syl/containers/index/index.py /app/
 

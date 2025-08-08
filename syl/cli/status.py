@@ -34,7 +34,7 @@ def print_json_status(name: str) -> None:
 
 def _is_syl_image(container_image: str) -> bool:
     """Check if an image is a syl image (not external dependencies like pgvector/chromadb)"""
-    if container_image.startswith('ohtz/syl-test'):
+    if container_image.startswith('ohtz/syl'):
         return True
 
     if container_image.startswith('sha256:') or len(container_image) == 12:
@@ -54,7 +54,7 @@ def _is_syl_image_outdated(docker: DockerManager, container_image: str) -> bool:
         return False
 
     # If it's a syl image and has the -latest tag, it's not outdated
-    if container_image.startswith('ohtz/syl-test') and container_image.endswith('-latest'):
+    if container_image.startswith('ohtz/syl') and container_image.endswith('-latest'):
         return False
 
     # If it's a syl image but doesn't have -latest tag (including hashes), it's outdated
